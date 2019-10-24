@@ -14,37 +14,37 @@ Generator::Generator(std::string const& name) :
     _omega(1*2*M_PI),
     _cnt(0),
     rosOut("TimeSeriesPoint_out"),
+    rosSimpleOut("rosOut"),
     _simple_out_active(false),
     _complex_out_active(false),
+    _simple_ros_out_active(false),
     _complex_ros_out_active(false) {
 
-std::cout << "Generator constructed !" <<std::endl;
+    std::cout << "Generator constructed !" <<std::endl;
 
-/*
-  PORTS INIT
-*/
-this->addPort(rosOut).doc("Complex generator output to ROS");
-this->ports()->addPort("complexOut", complexOut).doc("TimeSeriesPoint output of the generator");
-this->ports()->addPort("simpleOut", simpleOut).doc("Double output of the generator");
+    this->ports()->addPort("simpleOut", simpleOut).doc("Double output of the generator");
+    this->addPort(rosSimpleOut).doc("Simple generator output to ROS");
+    this->ports()->addPort("complexOut", complexOut).doc("TimeSeriesPoint output of the generator");
+    this->addPort(rosOut).doc("Complex generator output to ROS");
 
-addAttribute("cnt", _cnt);
-addAttribute("a", _a);
-addAttribute("omega", _omega);
-addAttribute("period",_period);
-addAttribute("cpu_affinity",_cpu_affinity);
-addAttribute("priority",_priority);
+    addAttribute("cnt", _cnt);
+    addAttribute("a", _a);
+    addAttribute("omega", _omega);
+    addAttribute("period",_period);
+    addAttribute("cpu_affinity",_cpu_affinity);
+    addAttribute("priority",_priority);
 
-addAttribute("simple_out_active",_simple_out_active);
-addAttribute("complex_out_active",_complex_out_active);
-addAttribute("complex_ros_out_active",_complex_ros_out_active);
-// temp_cycles : 1 cycle - 0.01s
+    addAttribute("simple_out_active",_simple_out_active);
+    addAttribute("complex_out_active",_complex_out_active);
+    addAttribute("simple_ros_out_active",_simple_ros_out_active);
+    addAttribute("complex_ros_out_active",_complex_ros_out_active);
 
-addOperation( "setSineFrequency",
-              &Generator::_setSineFrequency,
-              this, RTT::OwnThread)
-              .doc("Sets sine frequency")
-              .arg("frequency","New sine frequency");
-configureHook();
+    addOperation( "setSineFrequency",
+                  &Generator::_setSineFrequency,
+                  this, RTT::OwnThread)
+                  .doc("Sets sine frequency")
+                  .arg("frequency","New sine frequency");
+    configureHook();
 }
 
 bool Generator::configureHook(){
@@ -65,10 +65,15 @@ bool Generator::configureHook(){
 
 
 bool Generator::startHook(){
-    if(!complexOut.connected() && !rosOut.connected())
+    if( !simpleOut.connected()    &&
+        !rosSimpleOut.connected() &&
+        !complexOut.connected()   &&
+        !rosOut.connected()
+        )
     {
+      std::cout << "No output port connected" << std::endl;
     	return false;
-    	std::cout << "No output port connected" << std::endl;
+
     }
     std::cout << "Generator started !" <<std::endl;
     return true;
@@ -76,25 +81,22 @@ bool Generator::startHook(){
 
 void Generator::updateHook(){
     double time = (double)(_cnt++) * _period;
-    sinwave::TimeSeriesPoint msg;
-    msg.timestamp = time;
-    msg.value = sin( time  * _omega + _a);
-    /*
-      Generator complex ROS output port message
-    */
-    if(_complex_ros_out_active){
-        rosOut.write(msg);
-    }
-    /*
-      Generator complex output
-    */
-    if(_complex_out_active) {
-        complexOut.write( msg );
-    }
+    double value = sin( time  * _omega + _a);
 
-    if(_simple_out_active) {
-        simpleOut.write( msg.value );
-    }
+    sinwave::TimeSeriesPoint msg;
+
+    msg.timestamp = time;
+    msg.value = value;
+
+    if(_simple_out_active)      { simpleOut.write( value );   }
+    // if(_simple_ros_out_active)  { rosSimpleOut.write( value );}
+
+    sinwave::WorkaroundDouble msg2;
+    msg2.value = value;
+    if(_simple_ros_out_active)  { rosSimpleOut.write( msg2 );}
+
+    if(_complex_out_active)     { complexOut.write( msg );    }
+    if(_complex_ros_out_active) { rosOut.write(msg);          }
 }
 
 void Generator::stopHook() {

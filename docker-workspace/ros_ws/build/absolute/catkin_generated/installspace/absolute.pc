@@ -1,0 +1,8 @@
+prefix=/workspace/ros_ws/install
+
+Name: absolute
+Description: Description of absolute
+Version: 1.0.0
+Cflags: 
+Libs: -L/workspace/ros_ws/install/lib 
+Requires: 

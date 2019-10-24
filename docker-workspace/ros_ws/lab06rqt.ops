@@ -1,16 +1,22 @@
 import("rtt_ros")
 import("rtt_roscomm")
 
-import("generator")
+ros.import("generator")
 ros.import("logger")
+ros.import("rtt_sinwave")
 
-loadComponent("gen","Generator")
 loadComponent("log","Logger")
-
+loadComponent("gen","Generator")
 gen.configure()
 
 connectTwoPorts("gen", "simpleOut", "log", "simpleInput")
-gen.complexout_active = true
+stream("log.Double_out", ros.topic("oro_out"))
+
+gen.simple_out_active = true
+
+log.verbose = false
+log.simple_in_active = true
+log.simple_ros_out_active = true
 
 gen.start
 log.start

@@ -48,3 +48,8 @@ deployer-gnulinux -s nazwaSkryptu
 # 5) Uruchomić lab04rqt.ops
 # 6) Uruchomić rqtplota na nowym WSLu (trzeba sourcować setup.basha) (topic: /oro_to_ros/value)
 # 7) W deployerze moge wejsc do loggera i ustawic verbose na true, zeby zobaczyc wiadomosc
+
+stream("gen.rosOut", ros.topic("oro_double"))
+
+# catkin_make --only-pkg-with-deps sinwave
+# catkin_make -DCATKIN_WHITELIST_PACKAGES=""

@@ -4,8 +4,8 @@
 
 Logger::Logger(std::string const& name) :
 		TaskContext(name),
-		rosOutSimple("Double_out"),
-		rosOutComplex("TimeSeriesPoint_out"),
+		rosSimpleOut("Double_out"),
+		rosComplexOut("TimeSeriesPoint_out"),
 		_verbose(false),
 		_simple_in_active(false),
 		_complex_in_active(false),
@@ -15,8 +15,8 @@ Logger::Logger(std::string const& name) :
 		ports()->addEventPort("simpleInput", simpleInput).doc("Double input");
 		ports()->addEventPort("complexInput", complexInput).doc("TimeSeriesPoint input");
 
-		this->addPort(rosOutSimple).doc("Simple output to ROS topic");
-		this->addPort(rosOutComplex).doc("Complex output to ROS topic");
+		this->addPort(rosSimpleOut).doc("Simple output to ROS topic");
+		this->addPort(rosComplexOut).doc("Complex output to ROS topic");
 
 		addAttribute("verbose", _verbose);
 		addAttribute("simple_in_active",_simple_in_active);
@@ -42,13 +42,14 @@ bool Logger::startHook(){
 void Logger::updateHook(){
 		sinwave::TimeSeriesPoint msgComplex;
 		double msgSimple;
+		sinwave::WorkaroundDouble msgSimpleRos;
 
 		if(_verbose) { std::cout << std::fixed; }
 
 		if (_complex_in_active) {
 				if(complexInput.read(msgComplex) == RTT::NewData){
 						if(_complex_ros_out_active){
-								rosOutComplex.write(msgComplex);
+								rosComplexOut.write(msgComplex);
 						}
 						if(_verbose) {
 								std::cout << "[C]\t";
@@ -61,7 +62,9 @@ void Logger::updateHook(){
 		if (_simple_in_active) {
 				if(simpleInput.read(msgSimple) == RTT::NewData){
 						if(_simple_ros_out_active){
-								rosOutSimple.write(msgSimple);
+								msgSimpleRos.value = msgSimple;
+								rosSimpleOut.write(msgSimpleRos);
+								// rosSimpleOut.write(msgSimple);
 						}
 						if(_verbose) {
 								std::cout << "[S]\t";

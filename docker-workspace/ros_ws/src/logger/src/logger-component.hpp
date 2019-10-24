@@ -4,8 +4,11 @@
 #include <rtt/os/TimeService.hpp>
 #include <rtt/Time.hpp>
 #include <rtt/RTT.hpp>
-#include <sinwave/TimeSeriesPoint.h>
 #include <iomanip>
+
+#include <sinwave/TimeSeriesPoint.h>
+#include <sinwave/WorkaroundDouble.h> // Jak to naprawić? Float64 ROSowe jako typ wiadomosci
+
 
 class Logger : public RTT::TaskContext{
 public:
@@ -19,8 +22,9 @@ public:
 private:
     RTT::InputPort<double> simpleInput;
     RTT::InputPort<sinwave::TimeSeriesPoint> complexInput;
-    RTT::OutputPort<double> rosOutSimple;
-    RTT::OutputPort<sinwave::TimeSeriesPoint> rosOutComplex;
+    // RTT::OutputPort<double> rosSimpleOut;
+    RTT::OutputPort<sinwave::WorkaroundDouble> rosSimpleOut;
+    RTT::OutputPort<sinwave::TimeSeriesPoint> rosComplexOut;
     int cycles;
     bool _verbose;
 
