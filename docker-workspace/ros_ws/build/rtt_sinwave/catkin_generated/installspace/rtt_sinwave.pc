@@ -1,8 +1,0 @@
-prefix=/workspace/ros_ws/install
-
-Name: rtt_sinwave
-Description: Description of rtt_sinwave
-Version: 0.0.0
-Cflags: 
-Libs: -L/workspace/ros_ws/install/lib 
-Requires: 

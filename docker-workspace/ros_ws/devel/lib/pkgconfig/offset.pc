@@ -1,8 +1,0 @@
-prefix=/workspace/ros_ws/devel
-
-Name: offset
-Description: Description of offset
-Version: 1.0.0
-Cflags: 
-Libs: -L/workspace/ros_ws/devel/lib 
-Requires: 

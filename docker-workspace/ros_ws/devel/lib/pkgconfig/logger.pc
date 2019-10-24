@@ -1,8 +1,0 @@
-prefix=/workspace/ros_ws/devel
-
-Name: logger
-Description: Description of logger
-Version: 1.0.0
-Cflags: 
-Libs: -L/workspace/ros_ws/devel/lib 
-Requires: 
