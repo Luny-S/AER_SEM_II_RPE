@@ -1,0 +1,4 @@
+*build/*
+*devel/*
+./docker-workspace/ros_ws/devel/*
+./docker-workspace/ros_ws/build/*

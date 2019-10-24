@@ -1,1 +1,3 @@
 [[ -f /workspace/ros_ws/devel/setup/bash ]] && source /workspace/ros_ws/devel/setup.bash
+
+
