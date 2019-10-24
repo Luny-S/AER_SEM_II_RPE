@@ -1,0 +1,50 @@
+# Odpalenie obrazu w tle
+docker run -it -d jakutenshi/ubuntu-orocos-toolchain-2.8-16.04
+
+# Lista aktywnych obrazów
+docker ps -a
+
+# Odpal w powershellu aktywny obraz
+docker exec -it CONTAINER_ID bash
+
+# Zatrzymaj obraz
+docker stop CONTAINER_ID
+
+# Zbuduj obraz
+docker build -t NAME DOCKERFILE_DIRECTORY
+
+WSL and Docker
+https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
+
+#Orocos commands:
+
+# Uruchomienie deployera
+deployer-gnulinux
+
+# Pliki uruchomieniowe
+*.ops
+
+# Uruchomienie paczki
+import("nazwaPaczki")
+loadComponent("nazwaNowejZmiennej", "NazwaPaczki") (nazwa paczki pisana z wielkiej litery)
+nazwaNowejZmiennej.start
+quit
+
+# Uruchomienie skryptu
+deployer-gnulinux -s nazwaSkryptu
+
+# 
+# https://www.makeuseof.com/tag/linux-desktop-windows-subsystem/
+# https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde
+
+
+##############################################################################
+# Na zajęcia:
+#################
+# 1) Odpalic Dockera desktop
+# 2) Odpalic XLauncha (1 large window, Start no client, Disable access control)
+# 3) Odpalic WSLa, wpisać GUI, uruchomić skrypt, wejść do workspace'a 
+# 4) roscore &
+# 5) Uruchomić lab04rqt.ops
+# 6) Uruchomić rqtplota na nowym WSLu (trzeba sourcować setup.basha) (topic: /oro_to_ros/value)
+# 7) W deployerze moge wejsc do loggera i ustawic verbose na true, zeby zobaczyc wiadomosc

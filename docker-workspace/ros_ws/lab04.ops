@@ -1,0 +1,11 @@
+import("generator")
+loadComponent("gen","Generator")
+
+import("logger")
+loadComponent("log","Logger")
+
+connectTwoPorts("gen", "outPort", "log", "inPort")
+connectTwoPorts("gen", "complexOut", "log", "complexInput")
+
+gen.start
+log.start

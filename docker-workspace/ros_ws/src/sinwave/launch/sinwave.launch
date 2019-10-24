@@ -1,0 +1,92 @@
+<launch>
+
+  <group ns="sin_test">
+
+    <!-- <node name="log_plot" pkg="rqt_plot" type="rqt_plot"
+      args="/sin_test/sin/value  /sin_test/sin_pow/value /sin_test/sin_amp/value /sin_test/sin_off/value /sin_test/sin_int/value /sin_test/sin_der/value /sin_test/sum/value"
+    /> -->
+
+    <node pkg="sinwave" name="generator" type="generator.py" output="screen">
+      <param name='out_topic' type='string' value='sin'/>
+      <param name='omega' type='double' value='6.2831'/>
+    </node>
+
+    <node pkg="sinwave" name="power" type="power.py" output="screen">
+      <param name='in_topic' type='string' value='sin'/>
+      <param name='out_topic' type='string' value='sin_pow'/>
+      <param name='power' type='double' value='2'/>
+    </node>
+
+    <node pkg="sinwave" name="amplification" type="amplification.py" output="screen">
+      <param name='in_topic' type='string' value='sin'/>
+      <param name='out_topic' type='string' value='sin_amp'/>
+      <param name='gain' type='double' value='1.5'/>
+    </node>
+
+    <node pkg="sinwave" name="offset" type="offset.py" output="screen">
+      <param name='in_topic' type='string' value='sin'/>
+      <param name='out_topic' type='string' value='sin_off'/>
+      <param name='offset' type='double' value='1.68'/>
+    </node>
+
+    <node pkg="sinwave" name="integration" type="integration.py" output="screen">
+      <param name='in_topic' type='string' value='sin'/>
+      <param name='out_topic' type='string' value='sin_int'/>
+      <param name='initial_value' type='double' value='0'/>
+    </node>
+
+    <node pkg="sinwave" name="derivative" type="derivative.py" output="screen">
+      <param name='in_topic' type='string' value='sin'/>
+      <param name='out_topic' type='string' value='sin_der'/>
+    </node>
+
+    <node pkg="sinwave" name="sum" type="sum.py" output="screen">
+      <param name='in_topic1' type='string' value='sin'/>
+      <param name='in_topic2' type='string' value='sin_der'/>
+      <param name='out_topic' type='string' value='sum'/>
+    </node>
+  </group>
+
+  <group ns="sin4x">
+    <node pkg="sinwave" name="generator" type="generator.py" output="screen">
+      <param name='out_topic' type='string' value='sin_base'/>
+      <param name='omega' type='double' value='6.2831'/>
+    </node>
+
+    <node pkg="sinwave" name="power1" type="power.py" output="screen">
+      <param name='in_topic' type='string' value='sin_base'/>
+      <param name='out_topic' type='string' value='sig1'/>
+      <param name='power' type='double' value='2'/>
+    </node>
+
+    <node pkg="sinwave" name="derivative1" type="derivative.py" output="screen">
+      <param name='in_topic' type='string' value='sig1'/>
+      <param name='out_topic' type='string' value='sig2'/>
+    </node>
+
+    <node pkg="sinwave" name="power2" type="power.py" output="screen">
+      <param name='in_topic' type='string' value='sig2'/>
+      <param name='out_topic' type='string' value='sig3'/>
+      <param name='power' type='double' value='2'/>
+    </node>
+
+    <node pkg="sinwave" name="derivative2" type="derivative.py" output="screen">
+      <param name='in_topic' type='string' value='sig3'/>
+      <param name='out_topic' type='string' value='sig4'/>
+    </node>
+
+    <node pkg="sinwave" name="amplification" type="amplification.py" output="screen">
+      <param name='in_topic' type='string' value='sig4'/>
+      <param name='out_topic' type='string' value='sin4x'/>
+      <param name='gain' type='double' value='0.002015803'/> <!-- gain = 1/(2*omega^3) -->
+    </node>
+
+
+    <node name="sin4x_plot" pkg="rqt_plot" type="rqt_plot"
+      args="/sin4x/sin_base/value  /sin4x/sin4x/value"
+    />
+
+  </group>
+
+
+</launch>

@@ -1,0 +1,1 @@
+set(ORDERED_PATHS "/opt/ros/kinetic/lib;/opt/ros/kinetic/lib/orocos/gnulinux/rtt_roscomm/plugins")

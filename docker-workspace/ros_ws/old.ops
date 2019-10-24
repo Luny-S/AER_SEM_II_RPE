@@ -1,0 +1,31 @@
+import("generator")
+loadComponent("gen","Generator")
+
+import("power")
+loadComponent("pow","Power")
+
+import("offset")
+loadComponent("off","Offset")
+
+import("amplification")
+loadComponent("amp","Amplification")
+
+import("absolute")
+loadComponent("abs","Absolute")
+
+import("logger")
+loadComponent("log","Logger")
+
+connectTwoPorts("gen", "outPort", "log", "inPort")
+connectTwoPorts("gen", "outPort", "off", "inPort")
+connectTwoPorts("gen", "outPort", "amp", "inPort")
+connectTwoPorts("gen", "outPort", "abs", "inPort")
+
+
+
+gen.start
+pow.start
+off.start
+amp.start
+abs.start
+log.start
