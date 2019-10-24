@@ -1,0 +1,16 @@
+import("rtt_ros")
+import("rtt_roscomm")
+
+import("generator")
+ros.import("logger")
+
+loadComponent("gen","Generator")
+loadComponent("log","Logger")
+
+gen.configure()
+
+connectTwoPorts("gen", "simpleOut", "log", "simpleInput")
+gen.complexout_active = true
+
+gen.start
+log.start

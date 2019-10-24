@@ -292,8 +292,60 @@ uninstall: cmake_check_build_system
 
 # fast build rule for target.
 uninstall/fast:
-	$(MAKE) -f logger/CMakeFiles/uninstall.dir/build.make logger/CMakeFiles/uninstall.dir/build
+	$(MAKE) -f absolute/CMakeFiles/uninstall.dir/build.make absolute/CMakeFiles/uninstall.dir/build
 .PHONY : uninstall/fast
+
+#=============================================================================
+# Target rules for targets named absolute
+
+# Build rule for target.
+absolute: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 absolute
+.PHONY : absolute
+
+# fast build rule for target.
+absolute/fast:
+	$(MAKE) -f absolute/src/CMakeFiles/absolute.dir/build.make absolute/src/CMakeFiles/absolute.dir/build
+.PHONY : absolute/fast
+
+#=============================================================================
+# Target rules for targets named amplification
+
+# Build rule for target.
+amplification: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 amplification
+.PHONY : amplification
+
+# fast build rule for target.
+amplification/fast:
+	$(MAKE) -f amplification/src/CMakeFiles/amplification.dir/build.make amplification/src/CMakeFiles/amplification.dir/build
+.PHONY : amplification/fast
+
+#=============================================================================
+# Target rules for targets named derivative
+
+# Build rule for target.
+derivative: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 derivative
+.PHONY : derivative
+
+# fast build rule for target.
+derivative/fast:
+	$(MAKE) -f derivative/src/CMakeFiles/derivative.dir/build.make derivative/src/CMakeFiles/derivative.dir/build
+.PHONY : derivative/fast
+
+#=============================================================================
+# Target rules for targets named integration
+
+# Build rule for target.
+integration: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 integration
+.PHONY : integration
+
+# fast build rule for target.
+integration/fast:
+	$(MAKE) -f integration/src/CMakeFiles/integration.dir/build.make integration/src/CMakeFiles/integration.dir/build
+.PHONY : integration/fast
 
 #=============================================================================
 # Target rules for targets named logger
@@ -307,6 +359,45 @@ logger: cmake_check_build_system
 logger/fast:
 	$(MAKE) -f logger/src/CMakeFiles/logger.dir/build.make logger/src/CMakeFiles/logger.dir/build
 .PHONY : logger/fast
+
+#=============================================================================
+# Target rules for targets named offset
+
+# Build rule for target.
+offset: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 offset
+.PHONY : offset
+
+# fast build rule for target.
+offset/fast:
+	$(MAKE) -f offset/src/CMakeFiles/offset.dir/build.make offset/src/CMakeFiles/offset.dir/build
+.PHONY : offset/fast
+
+#=============================================================================
+# Target rules for targets named power
+
+# Build rule for target.
+power: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 power
+.PHONY : power
+
+# fast build rule for target.
+power/fast:
+	$(MAKE) -f power/src/CMakeFiles/power.dir/build.make power/src/CMakeFiles/power.dir/build
+.PHONY : power/fast
+
+#=============================================================================
+# Target rules for targets named sum
+
+# Build rule for target.
+sum: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sum
+.PHONY : sum
+
+# fast build rule for target.
+sum/fast:
+	$(MAKE) -f sum/src/CMakeFiles/sum.dir/build.make sum/src/CMakeFiles/sum.dir/build
+.PHONY : sum/fast
 
 #=============================================================================
 # Target rules for targets named sinwave_genpy
@@ -747,7 +838,14 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... uninstall"
+	@echo "... absolute"
+	@echo "... amplification"
+	@echo "... derivative"
+	@echo "... integration"
 	@echo "... logger"
+	@echo "... offset"
+	@echo "... power"
+	@echo "... sum"
 	@echo "... sinwave_genpy"
 	@echo "... sinwave_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"

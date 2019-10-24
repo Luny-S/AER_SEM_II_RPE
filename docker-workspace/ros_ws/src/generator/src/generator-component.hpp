@@ -34,6 +34,7 @@ class Generator : public RTT::TaskContext{
 private:
 	RTT::OutputPort<sinwave::TimeSeriesPoint> rosOut;
   RTT::OutputPort<sinwave::TimeSeriesPoint> complexOut;
+  RTT::OutputPort<double> simpleOut;
 
   void _setSineFrequency(double frequency);
 
@@ -43,6 +44,9 @@ private:
 	int _priority;
 	double _period;
 	unsigned int _cpu_affinity;
-  bool _rosout_active;
+
+  bool _simple_out_active;
+  bool _complex_out_active;
+  bool _complex_ros_out_active;
 };
 #endif

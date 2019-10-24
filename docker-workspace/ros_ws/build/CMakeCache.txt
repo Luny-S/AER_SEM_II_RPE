@@ -302,11 +302,38 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 //Path to a file.
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
+//Value Computed by CMake
+absolute_BINARY_DIR:STATIC=/workspace/ros_ws/build/absolute
+
+//Dependencies for the target
+absolute_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+absolute_SOURCE_DIR:STATIC=/workspace/ros_ws/src/absolute
+
+//Value Computed by CMake
+amplification_BINARY_DIR:STATIC=/workspace/ros_ws/build/amplification
+
+//Dependencies for the target
+amplification_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+amplification_SOURCE_DIR:STATIC=/workspace/ros_ws/src/amplification
+
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/kinetic/share/catkin/cmake
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/kinetic/share/cpp_common/cmake
+
+//Value Computed by CMake
+derivative_BINARY_DIR:STATIC=/workspace/ros_ws/build/derivative
+
+//Dependencies for the target
+derivative_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+derivative_SOURCE_DIR:STATIC=/workspace/ros_ws/src/derivative
 
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/kinetic/share/gencpp/cmake
@@ -375,6 +402,15 @@ gtest_force_shared_crt:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//Value Computed by CMake
+integration_BINARY_DIR:STATIC=/workspace/ros_ws/build/integration
+
+//Dependencies for the target
+integration_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+integration_SOURCE_DIR:STATIC=/workspace/ros_ws/src/integration
+
 //Path to a library.
 lib:FILEPATH=/opt/ros/kinetic/lib/libxmlrpcpp.so
 
@@ -392,6 +428,24 @@ message_generation_DIR:PATH=/opt/ros/kinetic/share/message_generation/cmake
 
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/kinetic/share/message_runtime/cmake
+
+//Value Computed by CMake
+offset_BINARY_DIR:STATIC=/workspace/ros_ws/build/offset
+
+//Dependencies for the target
+offset_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+offset_SOURCE_DIR:STATIC=/workspace/ros_ws/src/offset
+
+//Value Computed by CMake
+power_BINARY_DIR:STATIC=/workspace/ros_ws/build/power
+
+//Dependencies for the target
+power_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+power_SOURCE_DIR:STATIC=/workspace/ros_ws/src/power
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/kinetic/share/rosconsole/cmake
@@ -606,6 +660,15 @@ sinwave_SOURCE_DIR:STATIC=/workspace/ros_ws/src/sinwave
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/kinetic/share/std_msgs/cmake
 
+//Value Computed by CMake
+sum_BINARY_DIR:STATIC=/workspace/ros_ws/build/sum
+
+//Dependencies for the target
+sum_LIB_DEPENDS:STATIC=general;imported_orocos-rtt-gnulinux_dynamic;
+
+//Value Computed by CMake
+sum_SOURCE_DIR:STATIC=/workspace/ros_ws/src/sum
+
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/kinetic/share/xmlrpcpp/cmake
 
@@ -711,7 +774,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=25
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -797,12 +860,27 @@ __pkg_config_checked_rtt_roscomm_COMP_gnulinux:INTERNAL=1
 __pkg_config_checked_rtt_rosgraph_msgs_COMP_gnulinux:INTERNAL=1
 __pkg_config_checked_rtt_std_msgs_COMP_gnulinux:INTERNAL=1
 __pkg_config_checked_sinwave_COMP_gnulinux:INTERNAL=1
+//Mark absolute-gnulinux package as an Orocos package built in
+// this workspace
+absolute-gnulinux_OROCOS_PACKAGE:INTERNAL=True
+//Mark amplification-gnulinux package as an Orocos package built
+// in this workspace
+amplification-gnulinux_OROCOS_PACKAGE:INTERNAL=True
+//Mark derivative-gnulinux package as an Orocos package built in
+// this workspace
+derivative-gnulinux_OROCOS_PACKAGE:INTERNAL=True
 //Mark generator-gnulinux package as an Orocos package built in
 // this workspace
 generator-gnulinux_OROCOS_PACKAGE:INTERNAL=True
+//Mark integration-gnulinux package as an Orocos package built
+// in this workspace
+integration-gnulinux_OROCOS_PACKAGE:INTERNAL=True
 //Mark logger-gnulinux package as an Orocos package built in this
 // workspace
 logger-gnulinux_OROCOS_PACKAGE:INTERNAL=True
+//Mark offset-gnulinux package as an Orocos package built in this
+// workspace
+offset-gnulinux_OROCOS_PACKAGE:INTERNAL=True
 orogen_COMP_gnulinux_CFLAGS:INTERNAL=
 orogen_COMP_gnulinux_CFLAGS_I:INTERNAL=
 orogen_COMP_gnulinux_CFLAGS_OTHER:INTERNAL=
@@ -827,6 +905,9 @@ orogen_COMP_gnulinux_orogen-gnulinux_INCLUDEDIR:INTERNAL=
 orogen_COMP_gnulinux_orogen-gnulinux_LIBDIR:INTERNAL=
 orogen_COMP_gnulinux_orogen-gnulinux_PREFIX:INTERNAL=
 orogen_COMP_gnulinux_orogen-gnulinux_VERSION:INTERNAL=
+//Mark power-gnulinux package as an Orocos package built in this
+// workspace
+power-gnulinux_OROCOS_PACKAGE:INTERNAL=True
 prefix_result:INTERNAL=/opt/ros/kinetic/lib
 rtt_roscomm_COMP_gnulinux_CFLAGS:INTERNAL=-DOROCOS_TARGET=gnulinux;-I/opt/ros/kinetic/include/orocos;-I/opt/ros/kinetic/include
 rtt_roscomm_COMP_gnulinux_CFLAGS_I:INTERNAL=
@@ -965,4 +1046,7 @@ sinwave_COMP_gnulinux_sinwave-gnulinux_INCLUDEDIR:INTERNAL=
 sinwave_COMP_gnulinux_sinwave-gnulinux_LIBDIR:INTERNAL=
 sinwave_COMP_gnulinux_sinwave-gnulinux_PREFIX:INTERNAL=
 sinwave_COMP_gnulinux_sinwave-gnulinux_VERSION:INTERNAL=
+//Mark sum-gnulinux package as an Orocos package built in this
+// workspace
+sum-gnulinux_OROCOS_PACKAGE:INTERNAL=True
 

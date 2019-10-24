@@ -1,0 +1,8 @@
+prefix=/workspace/ros_ws/install
+
+Name: integration
+Description: Description of integration
+Version: 1.0.0
+Cflags: 
+Libs: -L/workspace/ros_ws/install/lib 
+Requires: 

@@ -14,7 +14,9 @@ Generator::Generator(std::string const& name) :
     _omega(1*2*M_PI),
     _cnt(0),
     rosOut("TimeSeriesPoint_out"),
-    _rosout_active(false) {
+    _simple_out_active(false),
+    _complex_out_active(false),
+    _complex_ros_out_active(false) {
 
 std::cout << "Generator constructed !" <<std::endl;
 
@@ -23,6 +25,7 @@ std::cout << "Generator constructed !" <<std::endl;
 */
 this->addPort(rosOut).doc("Complex generator output to ROS");
 this->ports()->addPort("complexOut", complexOut).doc("TimeSeriesPoint output of the generator");
+this->ports()->addPort("simpleOut", simpleOut).doc("Double output of the generator");
 
 addAttribute("cnt", _cnt);
 addAttribute("a", _a);
@@ -30,7 +33,10 @@ addAttribute("omega", _omega);
 addAttribute("period",_period);
 addAttribute("cpu_affinity",_cpu_affinity);
 addAttribute("priority",_priority);
-addAttribute("rosout_active",_rosout_active);
+
+addAttribute("simple_out_active",_simple_out_active);
+addAttribute("complex_out_active",_complex_out_active);
+addAttribute("complex_ros_out_active",_complex_ros_out_active);
 // temp_cycles : 1 cycle - 0.01s
 
 addOperation( "setSineFrequency",
@@ -38,7 +44,6 @@ addOperation( "setSineFrequency",
               this, RTT::OwnThread)
               .doc("Sets sine frequency")
               .arg("frequency","New sine frequency");
-
 configureHook();
 }
 
@@ -77,13 +82,19 @@ void Generator::updateHook(){
     /*
       Generator complex ROS output port message
     */
-    if(_rosout_active){
+    if(_complex_ros_out_active){
         rosOut.write(msg);
     }
     /*
       Generator complex output
     */
-    complexOut.write( msg );
+    if(_complex_out_active) {
+        complexOut.write( msg );
+    }
+
+    if(_simple_out_active) {
+        simpleOut.write( msg.value );
+    }
 }
 
 void Generator::stopHook() {

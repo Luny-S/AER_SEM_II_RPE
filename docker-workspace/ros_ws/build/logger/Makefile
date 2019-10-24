@@ -89,17 +89,6 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -133,6 +122,17 @@ test/fast: test
 
 .PHONY : test/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /workspace/ros_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /workspace/ros_ws/build/CMakeFiles /workspace/ros_ws/build/logger/CMakeFiles/progress.marks
@@ -165,21 +165,6 @@ depend:
 	cd /workspace/ros_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-logger/CMakeFiles/uninstall.dir/rule:
-	cd /workspace/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 logger/CMakeFiles/uninstall.dir/rule
-.PHONY : logger/CMakeFiles/uninstall.dir/rule
-
-# Convenience name for target.
-uninstall: logger/CMakeFiles/uninstall.dir/rule
-
-.PHONY : uninstall
-
-# fast build rule for target.
-uninstall/fast:
-	cd /workspace/ros_ws/build && $(MAKE) -f logger/CMakeFiles/uninstall.dir/build.make logger/CMakeFiles/uninstall.dir/build
-.PHONY : uninstall/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,11 +174,10 @@ help:
 	@echo "... list_install_components"
 	@echo "... install"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... uninstall"
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... test"
+	@echo "... edit_cache"
 .PHONY : help
 
 

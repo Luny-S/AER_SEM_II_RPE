@@ -1,0 +1,8 @@
+prefix=/workspace/ros_ws/devel
+
+Name: sum
+Description: Description of sum
+Version: 1.0.0
+Cflags: 
+Libs: -L/workspace/ros_ws/devel/lib 
+Requires: 

@@ -1,2 +1,2 @@
-generator:logger:rtt_sinwave:sinwave
+absolute:amplification:derivative:generator:integration:logger:offset:power:rtt_sinwave:sinwave:sum
 -DCATKIN_DEVEL_PREFIX=/workspace/ros_ws/devel -DCMAKE_INSTALL_PREFIX=/workspace/ros_ws/install -G Unix Makefiles
