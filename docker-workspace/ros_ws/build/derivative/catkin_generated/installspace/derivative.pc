@@ -1,8 +1,0 @@
-prefix=/workspace/ros_ws/install
-
-Name: derivative
-Description: Description of derivative
-Version: 1.0.0
-Cflags: 
-Libs: -L/workspace/ros_ws/install/lib 
-Requires: 

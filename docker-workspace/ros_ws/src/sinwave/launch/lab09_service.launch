@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="sinwave" name="sumClient" type="sumClient.py" output="screen">
+        <param name='numberOfDigits' type='int' value='2'/>
+        <param name='rateOfExecution' type='int' value='1'/>
+    </node>
+
+    <node pkg="sinwave" name="sumServer" type="sumServer.py" output="screen">
+    </node>
+
+</launch>

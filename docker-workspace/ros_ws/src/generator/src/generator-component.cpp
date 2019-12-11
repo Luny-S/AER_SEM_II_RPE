@@ -22,10 +22,11 @@ Generator::Generator(std::string const& name) :
 
     std::cout << "Generator constructed !" <<std::endl;
 
-    this->ports()->addPort("simpleOut", simpleOut).doc("Double output of the generator");
-    this->addPort(rosSimpleOut).doc("Simple generator output to ROS");
-    this->ports()->addPort("complexOut", complexOut).doc("TimeSeriesPoint output of the generator");
-    this->addPort(rosOut).doc("Complex generator output to ROS");
+    ports()->addPort("simpleOut", simpleOut).doc("Double output of the generator");
+    addPort(rosSimpleOut).doc("Simple generator output to ROS");
+    ports()->addPort("complexOut", complexOut).doc("TimeSeriesPoint output of the generator");
+    addPort(rosOut).doc("Complex generator output to ROS");
+    ports()->addPort("setGainOut", setGainOut).doc("Output to set gain in amp component related to sine wave frequency changing");
 
     addAttribute("cnt", _cnt);
     addAttribute("a", _a);
@@ -44,6 +45,8 @@ Generator::Generator(std::string const& name) :
                   this, RTT::OwnThread)
                   .doc("Sets sine frequency")
                   .arg("frequency","New sine frequency");
+    _initialTimestamp = RTT::os::TimeService::Instance()->getTicks();
+
     configureHook();
 }
 
@@ -97,6 +100,8 @@ void Generator::updateHook(){
 
     if(_complex_out_active)     { complexOut.write( msg );    }
     if(_complex_ros_out_active) { rosOut.write(msg);          }
+
+    // std::cout << "TIMESTAMP:\t" << RTT::os::TimeService::Instance()->secondsSince( _initialTimestamp ) << "\t";
 }
 
 void Generator::stopHook() {
@@ -108,8 +113,10 @@ void Generator::cleanupHook() {
 }
 
 void Generator::_setSineFrequency(double frequency) {
-  this->_omega = 2 * M_PI * frequency;
-  std::cout << "Sine frequency changed to " << frequency << " Hz!" << std::endl;
+    this->_omega = 2 * M_PI * frequency;
+    double gain = 1 / ( 2 * pow(this->_omega, 3) );
+    std::cout << "Sine frequency changed to " << frequency << " Hz!" << std::endl;
+    setGainOut.write(gain);
 }
 
 /*

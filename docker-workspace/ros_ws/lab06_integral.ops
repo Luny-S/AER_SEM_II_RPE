@@ -1,0 +1,44 @@
+# Import required components
+import("rtt_ros")
+import("rtt_roscomm")
+
+# Import my components
+import("generator")
+ros.import("logger")
+ros.import("rtt_sinwave")
+
+# Load components
+loadComponent("gen","Generator")
+loadComponent("log1","Logger")
+loadComponent("log2","Logger")
+
+connectTwoPorts("gen", "simpleOut", "log1", "simpleIn")
+stream("log1.Double_out", ros.topic("sine1"))
+stream("log2.Double_out", ros.topic("sine2"))
+
+gen.simple_out_active = true
+log1.simple_in_active = true
+log1.simple_ros_out_active = true
+log2.simple_in_active = true
+log2.simple_ros_out_active = true
+
+# Set sine frequency
+gen.omega = 1
+
+# Insert math component here
+const string mathCompName = "Integration"
+
+import(mathCompName)
+loadComponent("mathObj",mathCompName)
+connectTwoPorts("gen", "simpleOut", "mathObj", "simpleIn")
+connectTwoPorts("mathObj", "simpleOut", "log2", "simpleIn")
+
+# Individual parameter modification
+mathObj.initialValue = -1.0
+
+# Configure and start components
+gen.configure()
+gen.start
+log1.start
+log2.start
+mathObj.start

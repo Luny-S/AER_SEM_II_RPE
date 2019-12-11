@@ -2,8 +2,13 @@
 #include <rtt/Component.hpp>
 #include <iostream>
 
-Offset::Offset(std::string const& name) : TaskContext(name){
-  std::cout << "Offset constructed !" <<std::endl;
+Offset::Offset(std::string const& name) : TaskContext(name), offsetValue(0) {
+    ports()->addEventPort("simpleIn",simpleIn).doc("[double] Input");
+    ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
+
+    addAttribute("offsetValue",offsetValue);
+
+    std::cout << "Offset constructed !" <<std::endl;
 }
 
 bool Offset::configureHook(){
@@ -17,7 +22,10 @@ bool Offset::startHook(){
 }
 
 void Offset::updateHook(){
-  std::cout << "Offset executes updateHook !" <<std::endl;
+    double value;
+    if(simpleIn.read(value) == RTT::NewData){
+        simpleOut.write ( value + offsetValue );
+    }
 }
 
 void Offset::stopHook() {

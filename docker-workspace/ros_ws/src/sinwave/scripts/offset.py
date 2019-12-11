@@ -24,8 +24,8 @@ def callback(data):
 def talker():
     global pub, offset
     rospy.init_node('offset', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-    out_topic = rospy.get_param('~out_topic')
+    in_topic = rospy.get_param('~inTopic')
+    out_topic = rospy.get_param('~outTopic')
     offset = rospy.get_param('~offset')
 
     pub = rospy.Publisher(out_topic, TimeSeriesPoint, queue_size=10)

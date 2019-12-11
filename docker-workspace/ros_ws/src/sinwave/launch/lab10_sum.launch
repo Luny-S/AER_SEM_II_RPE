@@ -1,0 +1,21 @@
+<launch>
+    <node pkg="sinwave" name="gen1" type="generator.py" output="screen">
+        <param name='outTopic' type='string' value='sine1'/>
+        <param name='frequency' type='double' value='1'/>
+        <param name='executionFrequency' type='double' value='30.0'/>
+    </node>
+
+    <node pkg="sinwave" name="gen2" type="generator.py" output="screen">
+        <param name='outTopic' type='string' value='sine2'/>
+        <param name='frequency' type='double' value='2'/>
+        <param name='executionFrequency' type='double' value='30.0'/>
+    </node>
+
+    <node pkg="sinwave" name="sum" type="sum.py" output="screen">
+      <param name='inTopic1' type='string' value='sine1'/>
+      <param name='inTopic2' type='string' value='sine2'/>
+      <param name='outTopic' type='string' value='sine3'/>
+    </node>
+
+    <node name="loggerRqt" pkg="rqt_plot" type="rqt_plot" args="/sine1/value /sine2/value /sine3/value"/>
+</launch>

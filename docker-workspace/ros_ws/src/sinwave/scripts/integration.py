@@ -28,9 +28,9 @@ def callback(data):
 def talker():
     global pub, sum
     rospy.init_node('integration', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-    out_topic = rospy.get_param('~out_topic')
-    sum = rospy.get_param('~initial_value')
+    in_topic = rospy.get_param('~inTopic')
+    out_topic = rospy.get_param('~outTopic')
+    sum = rospy.get_param('~initialValue')
 
     pub = rospy.Publisher(out_topic, TimeSeriesPoint, queue_size=10)
     rospy.Subscriber(in_topic, TimeSeriesPoint, callback)

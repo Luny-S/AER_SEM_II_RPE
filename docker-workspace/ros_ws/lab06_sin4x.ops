@@ -1,0 +1,55 @@
+# Import required components
+import("rtt_ros")
+import("rtt_roscomm")
+
+# Import my components
+import("generator")
+import("derivative")
+import("power")
+import("amplification")
+ros.import("logger")
+ros.import("rtt_sinwave")
+
+# Load components
+loadComponent("gen","Generator")
+loadComponent("power1","Power")
+loadComponent("derivative1","Derivative")
+loadComponent("power2","Power")
+loadComponent("derivative2","Derivative")
+loadComponent("amp","Amplification")
+loadComponent("log1","Logger")
+loadComponent("log2","Logger")
+
+connectTwoPorts("gen", "simpleOut", "log1", "simpleIn")
+stream("log1.Double_out", ros.topic("sine1"))
+
+connectTwoPorts("gen", "simpleOut", "power1", "simpleIn")
+connectTwoPorts("power1", "simpleOut", "derivative1", "simpleIn")
+connectTwoPorts("derivative1", "simpleOut", "power2", "simpleIn")
+connectTwoPorts("power2", "simpleOut", "derivative2", "simpleIn")
+connectTwoPorts("derivative2", "simpleOut", "amp", "simpleIn")
+connectTwoPorts("amp", "simpleOut", "log2", "simpleIn")
+stream("log2.Double_out", ros.topic("sine2"))
+
+connectTwoPorts("gen", "setGainOut", "amp", "gainIn")
+
+gen.simple_out_active = true
+log1.simple_in_active = true
+log1.simple_ros_out_active = true
+log2.simple_in_active = true
+log2.simple_ros_out_active = true
+
+# Set sine frequency
+const double sineFrequency = 3;
+gen.setSineFrequency(sineFrequency);
+
+# Configure and start components
+gen.configure()
+gen.start
+power1.start
+derivative1.start
+power2.start
+derivative2.start
+amp.start
+log1.start
+log2.start

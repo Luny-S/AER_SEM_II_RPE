@@ -12,8 +12,8 @@ Logger::Logger(std::string const& name) :
 		_simple_ros_out_active(false),
 		_complex_ros_out_active(false)	{
 
-		ports()->addEventPort("simpleInput", simpleInput).doc("Double input");
-		ports()->addEventPort("complexInput", complexInput).doc("TimeSeriesPoint input");
+		ports()->addEventPort("simpleIn", simpleIn).doc("Double input");
+		ports()->addEventPort("complexIn", complexIn).doc("TimeSeriesPoint input");
 
 		this->addPort(rosSimpleOut).doc("Simple output to ROS topic");
 		this->addPort(rosComplexOut).doc("Complex output to ROS topic");
@@ -47,7 +47,7 @@ void Logger::updateHook(){
 		if(_verbose) { std::cout << std::fixed; }
 
 		if (_complex_in_active) {
-				if(complexInput.read(msgComplex) == RTT::NewData){
+				if(complexIn.read(msgComplex) == RTT::NewData){
 						if(_complex_ros_out_active){
 								rosComplexOut.write(msgComplex);
 						}
@@ -60,7 +60,7 @@ void Logger::updateHook(){
 		}
 
 		if (_simple_in_active) {
-				if(simpleInput.read(msgSimple) == RTT::NewData){
+				if(simpleIn.read(msgSimple) == RTT::NewData){
 						if(_simple_ros_out_active){
 								msgSimpleRos.value = msgSimple;
 								rosSimpleOut.write(msgSimpleRos);

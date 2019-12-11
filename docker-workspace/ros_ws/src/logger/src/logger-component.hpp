@@ -20,8 +20,8 @@ public:
     void cleanupHook();
 
 private:
-    RTT::InputPort<double> simpleInput;
-    RTT::InputPort<sinwave::TimeSeriesPoint> complexInput;
+    RTT::InputPort<double> simpleIn;
+    RTT::InputPort<sinwave::TimeSeriesPoint> complexIn;
     // RTT::OutputPort<double> rosSimpleOut;
     RTT::OutputPort<sinwave::WorkaroundDouble> rosSimpleOut;
     RTT::OutputPort<sinwave::TimeSeriesPoint> rosComplexOut;

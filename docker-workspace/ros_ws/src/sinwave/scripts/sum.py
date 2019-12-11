@@ -50,9 +50,9 @@ def callback2(data):
 def talker():
     global pub, gain, sub1, sub2
     rospy.init_node('integration', anonymous=True)
-    in_topic1 = rospy.get_param('~in_topic1')
-    in_topic2 = rospy.get_param('~in_topic2')
-    out_topic = rospy.get_param('~out_topic')
+    in_topic1 = rospy.get_param('~inTopic1')
+    in_topic2 = rospy.get_param('~inTopic2')
+    out_topic = rospy.get_param('~outTopic')
 
     pub = rospy.Publisher(out_topic, TimeSeriesPoint, queue_size=10)
     sub1 = rospy.Subscriber(in_topic1, TimeSeriesPoint, callback1)

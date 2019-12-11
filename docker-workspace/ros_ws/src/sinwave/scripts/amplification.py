@@ -25,8 +25,8 @@ def callback(data):
 def talker():
     global pub, gain
     rospy.init_node('amplification', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-    out_topic = rospy.get_param('~out_topic')
+    in_topic = rospy.get_param('~inTopic')
+    out_topic = rospy.get_param('~outTopic')
     gain = rospy.get_param('~gain')
 
     pub = rospy.Publisher(out_topic, TimeSeriesPoint, queue_size=10)

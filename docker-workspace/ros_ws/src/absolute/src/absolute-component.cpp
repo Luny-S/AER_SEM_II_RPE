@@ -3,7 +3,9 @@
 #include <iostream>
 
 Absolute::Absolute(std::string const& name) : TaskContext(name){
-  std::cout << "Absolute constructed !" <<std::endl;
+    ports()->addEventPort("simpleIn",simpleIn).doc("[double] Input");
+    ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
+    std::cout << "Absolute constructed !" <<std::endl;
 }
 
 bool Absolute::configureHook(){
@@ -17,7 +19,10 @@ bool Absolute::startHook(){
 }
 
 void Absolute::updateHook(){
-  std::cout << "Absolute executes updateHook !" <<std::endl;
+    double value;
+    if(simpleIn.read(value) == RTT::NewData){
+        simpleOut.write (abs(value));
+    }
 }
 
 void Absolute::stopHook() {

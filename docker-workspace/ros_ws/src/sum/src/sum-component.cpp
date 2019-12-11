@@ -2,8 +2,18 @@
 #include <rtt/Component.hpp>
 #include <iostream>
 
-Sum::Sum(std::string const& name) : TaskContext(name){
-  std::cout << "Sum constructed !" <<std::endl;
+Sum::Sum(std::string const& name) :
+    TaskContext(name),
+    dataReady1(false),
+    dataReady2(false),
+    data1(0),
+    data2(0)
+{
+    ports()->addEventPort("simpleIn1",simpleIn1).doc("[double] Input 1");
+    ports()->addEventPort("simpleIn2",simpleIn2).doc("[double] Input 2");
+
+    ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
+    std::cout << "Sum constructed !" <<std::endl;
 }
 
 bool Sum::configureHook(){
@@ -17,7 +27,20 @@ bool Sum::startHook(){
 }
 
 void Sum::updateHook(){
-  std::cout << "Sum executes updateHook !" <<std::endl;
+    double value;
+    if(simpleIn1.read(value) == RTT::NewData)  {
+        dataReady1 = true;
+        data1 = value;
+    }
+    if(simpleIn2.read(value) == RTT::NewData)  {
+        dataReady2 = true;
+        data2 = value;
+    }
+    if(dataReady1 && dataReady2) {
+        dataReady1 = false;
+        dataReady2 = false;
+        simpleOut.write( data1 + data2 );
+    }
 }
 
 void Sum::stopHook() {

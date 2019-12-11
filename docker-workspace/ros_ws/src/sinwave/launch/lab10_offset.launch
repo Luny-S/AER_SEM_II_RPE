@@ -1,0 +1,15 @@
+<launch>
+    <node pkg="sinwave" name="generator" type="generator.py" output="screen">
+        <param name='outTopic' type='string' value='sine1'/>
+        <param name='frequency' type='double' value='1'/>
+        <param name='executionFrequency' type='double' value='30.0'/>
+    </node>
+
+    <node pkg="sinwave" name="offset" type="offset.py" output="screen">
+      <param name='inTopic' type='string' value='sine1'/>
+      <param name='outTopic' type='string' value='sine2'/>
+      <param name='offset' type='double' value='1.0'/>
+    </node>
+
+    <node name="loggerRqt" pkg="rqt_plot" type="rqt_plot" args="/sine1/value /sine2/value"/>
+</launch>

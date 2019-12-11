@@ -10,25 +10,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sinwave.msg import TimeSeriesPoint
 
-
-
 def callback(data):
-    # global plt,xdata,ydata,line
-    value = data.value
-
-
+    print data
+    print '*'*25
 
 def listener():
     global plt
     rospy.init_node('logger', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-
-    rospy.Subscriber(in_topic, TimeSeriesPoint, callback)
-    # plt.show()
-
+    inTopic = rospy.get_param('~inTopic')
+    rospy.Subscriber(inTopic, TimeSeriesPoint, callback)
     rospy.spin()
-
-
 
 if __name__ == '__main__':
     listener()

@@ -13,7 +13,6 @@ from sinwave.msg import TimeSeriesPoint
 pub = []
 power = 1
 
-
 def callback(data):
     global pub,power
     msg = TimeSeriesPoint()
@@ -21,12 +20,11 @@ def callback(data):
     msg.timestamp = data.timestamp
     pub.publish(msg)
 
-
 def talker():
     global pub, power
     rospy.init_node('power', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-    out_topic = rospy.get_param('~out_topic')
+    in_topic = rospy.get_param('~inTopic')
+    out_topic = rospy.get_param('~outTopic')
     power = rospy.get_param('~power')
 
     if(power < 1):

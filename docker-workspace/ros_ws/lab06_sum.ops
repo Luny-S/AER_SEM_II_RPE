@@ -1,0 +1,51 @@
+# Import required components
+import("rtt_ros")
+import("rtt_roscomm")
+
+# Import my components
+import("generator")
+ros.import("logger")
+ros.import("rtt_sinwave")
+
+# Load components
+loadComponent("gen1","Generator")
+loadComponent("gen2","Generator")
+loadComponent("log1","Logger")
+loadComponent("log2","Logger")
+loadComponent("log3","Logger")
+
+connectTwoPorts("gen1", "simpleOut", "log1", "simpleIn")
+connectTwoPorts("gen2", "simpleOut", "log2", "simpleIn")
+stream("log1.Double_out", ros.topic("sine1"))
+stream("log2.Double_out", ros.topic("sine2"))
+stream("log3.Double_out", ros.topic("sine3"))
+
+gen1.simple_out_active = true
+gen2.simple_out_active = true
+log1.simple_in_active = true
+log1.simple_ros_out_active = true
+log2.simple_in_active = true
+log2.simple_ros_out_active = true
+log3.simple_in_active = true
+log3.simple_ros_out_active = true
+
+gen1.setSineFrequency(1);
+gen2.setSineFrequency(2);
+
+import("sum")
+loadComponent("sum","Sum")
+
+connectTwoPorts("gen1", "simpleOut", "sum", "simpleIn1")
+connectTwoPorts("gen2", "simpleOut", "sum", "simpleIn2")
+connectTwoPorts("sum", "simpleOut", "log3", "simpleIn")
+
+
+# Configure and start components
+gen1.configure()
+gen1.start
+gen2.configure()
+gen2.start
+sum.start
+log1.start
+log2.start
+log3.start

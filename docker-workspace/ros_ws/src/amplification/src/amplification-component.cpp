@@ -2,8 +2,13 @@
 #include <rtt/Component.hpp>
 #include <iostream>
 
-Amplification::Amplification(std::string const& name) : TaskContext(name){
-  std::cout << "Amplification constructed !" <<std::endl;
+Amplification::Amplification(std::string const& name) : TaskContext(name), gain(1) {
+    ports()->addEventPort("simpleIn",simpleIn).doc("[double] Input");
+    ports()->addEventPort("gainIn",gainIn).doc("[double] Input allowing for gain value changing from another component during runtime");
+    ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
+    addAttribute("Gain", gain);
+
+    std::cout << "Amplification constructed !" <<std::endl;
 }
 
 bool Amplification::configureHook(){
@@ -17,7 +22,13 @@ bool Amplification::startHook(){
 }
 
 void Amplification::updateHook(){
-  std::cout << "Amplification executes updateHook !" <<std::endl;
+    double value;
+    if(gainIn.read(value) == RTT::NewData){
+        gain = value;
+        std::cout << "Gain value changed to: " << gain << std::endl;
+    } else if(simpleIn.read(value) == RTT::NewData){
+        simpleOut.write( gain*value );
+    }
 }
 
 void Amplification::stopHook() {

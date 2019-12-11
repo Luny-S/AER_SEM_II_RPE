@@ -90,7 +90,7 @@ docker run \
     --volume "$docker_ws:/workspace" \
 	-ti \
 	-e DISPLAY=10.0.75.1:0.0 \
-    rpe-gui
+    rpe-gui-updated
 	
 	
 	

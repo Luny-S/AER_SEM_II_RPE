@@ -11,13 +11,11 @@ from std_msgs.msg import Float64
 from sinwave.msg import TimeSeriesPoint
 
 pub = []
-power = 1
-
 
 def callback(data):
-    global pub,power
+    global pub
     msg = TimeSeriesPoint()
-    msg.value = math.fabs(data.value,power)
+    msg.value = math.fabs(data.value)
     msg.timestamp = data.timestamp
     pub.publish(msg)
 
@@ -25,12 +23,8 @@ def callback(data):
 def talker():
     global pub, power
     rospy.init_node('power', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-    out_topic = rospy.get_param('~out_topic')
-    power = rospy.get_param('~power')
-
-    if(power < 1):
-        raise ValueError('Power shall not be less than 1')
+    in_topic = rospy.get_param('~inTopic')
+    out_topic = rospy.get_param('~outTopic')
 
     pub = rospy.Publisher(out_topic, TimeSeriesPoint, queue_size=10)
     rospy.Subscriber(in_topic, TimeSeriesPoint, callback)

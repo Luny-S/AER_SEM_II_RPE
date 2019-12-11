@@ -3,6 +3,8 @@
 #include <iostream>
 
 Power::Power(std::string const& name) : TaskContext(name){
+  ports()->addEventPort("simpleIn",simpleIn).doc("[double] Input");
+  ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
   std::cout << "Power constructed !" <<std::endl;
 }
 
@@ -17,7 +19,10 @@ bool Power::startHook(){
 }
 
 void Power::updateHook(){
-  std::cout << "Power executes updateHook !" <<std::endl;
+    double value;
+    if(simpleIn.read(value) == RTT::NewData){
+        simpleOut.write( value*value );
+    }
 }
 
 void Power::stopHook() {

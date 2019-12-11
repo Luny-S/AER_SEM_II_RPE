@@ -8,7 +8,7 @@
 
     <node pkg="sinwave" name="generator" type="generator.py" output="screen">
       <param name='out_topic' type='string' value='sin'/>
-      <param name='omega' type='double' value='6.2831'/>
+      <param name='frequency' type='double' value='1'/>
     </node>
 
     <node pkg="sinwave" name="power" type="power.py" output="screen">
@@ -85,7 +85,6 @@
     <node name="sin4x_plot" pkg="rqt_plot" type="rqt_plot"
       args="/sin4x/sin_base/value  /sin4x/sin4x/value"
     />
-
   </group>
 
 

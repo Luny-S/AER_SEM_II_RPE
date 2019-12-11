@@ -23,13 +23,11 @@ def callback(data):
     msg.timestamp = data.timestamp
     pub.publish(msg)
 
-
-
 def talker():
     global pub, timestamp
     rospy.init_node('derivative', anonymous=True)
-    in_topic = rospy.get_param('~in_topic')
-    out_topic = rospy.get_param('~out_topic')
+    in_topic = rospy.get_param('~inTopic')
+    out_topic = rospy.get_param('~outTopic')
 
     pub = rospy.Publisher(out_topic, TimeSeriesPoint, queue_size=10)
     rospy.Subscriber(in_topic, TimeSeriesPoint, callback)

@@ -2,22 +2,47 @@
 #include <rtt/Component.hpp>
 #include <iostream>
 
-Integration::Integration(std::string const& name) : TaskContext(name){
-  std::cout << "Integration constructed !" <<std::endl;
+Integration::Integration(std::string const& name) :
+    TaskContext(name),
+    lastTimestamp(0),
+    lastValue(0),
+    _initialValue(0),
+    _priority(1),
+    _period(0.01),
+    _cpu_affinity(1),
+    _cnt(0) {
+
+    ports()->addEventPort("simpleIn",simpleIn).doc("[double] Input");
+    ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
+    addAttribute("initialValue", _initialValue);
+
+    std::cout << "Integration constructed !" <<std::endl;
 }
 
 bool Integration::configureHook(){
-  std::cout << "Integration configured !" <<std::endl;
-  return true;
+    return true;
 }
 
+
 bool Integration::startHook(){
+  sumOfValues=_initialValue;
   std::cout << "Integration started !" <<std::endl;
   return true;
 }
 
 void Integration::updateHook(){
-  std::cout << "Integration executes updateHook !" <<std::endl;
+    //double timestamp = (double)(_cnt++) * _period;
+    double value = 0;
+
+    if(simpleIn.read(value) == RTT::NewData){
+        sumOfValues += 0.01 * (value + lastValue) / 2;
+        // sumOfValues += (timestamp - lastTimestamp) * (value + lastValue) / 2;
+        // sumOfValues += value * (timestamp - lastTimestamp);
+        simpleOut.write( sumOfValues );
+
+        // lastTimestamp = timestamp;
+        lastValue = value;
+    }
 }
 
 void Integration::stopHook() {

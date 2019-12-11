@@ -1,0 +1,21 @@
+import("rtt_ros")
+import("rtt_roscomm")
+
+ros.import("generator")
+ros.import("logger")
+ros.import("rtt_sinwave")
+
+loadComponent("gen","Generator")
+loadComponent("log","Logger")
+
+stream("log.TimeSeriesPoint_out", ros.topic("sine_complex"))
+gen.configure()
+
+connectTwoPorts("gen", "complexOut", "log", "complexIn")
+gen.complex_out_active  = true
+log.complex_in_active   = true
+log.complex_ros_out_active = true
+log.verbose = true
+
+gen.start
+log.start

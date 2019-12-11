@@ -1,0 +1,18 @@
+<launch>
+
+  <group ns="ode">
+    <node pkg="ode_solver" name="time_gen" type="time_gen.py" output="screen">
+      <param name='out_topic' type='string' value='time'/>
+      <param name='omega' type='double' value='6.2831'/>
+    </node>
+
+    <node pkg="ode_solver" name="control_gen" type="control_gen.py" output="screen">
+      <param name='in_topic' type='string' value='time'/>
+      <param name='out_topic' type='string' value='control'/>
+    </node>
+
+    <!-- <node name="ode_plot" pkg="rqt_plot" type="rqt_plot"
+      args=""
+    /> -->
+  </group>
+</launch>

@@ -4,12 +4,17 @@
 #include <rtt/RTT.hpp>
 
 class Offset : public RTT::TaskContext{
-  public:
+public:
     Offset(std::string const& name);
     bool configureHook();
     bool startHook();
     void updateHook();
     void stopHook();
     void cleanupHook();
+private:
+    RTT::InputPort<double> simpleIn;
+    RTT::OutputPort<double> simpleOut;
+
+    double offsetValue;
 };
 #endif

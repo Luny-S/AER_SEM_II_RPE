@@ -2,13 +2,25 @@
 #include <rtt/Component.hpp>
 #include <iostream>
 
-Derivative::Derivative(std::string const& name) : TaskContext(name){
-  std::cout << "Derivative constructed !" <<std::endl;
+Derivative::Derivative(std::string const& name) :
+    TaskContext(name),
+    lastValue(0),
+    lastTimestamp(0),
+    _cnt(0) {
+
+    ports()->addEventPort("simpleIn",simpleIn).doc("[double] Input");
+    ports()->addPort("simpleOut",simpleOut).doc("[double] Output");
+
+    _initialTimestamp = RTT::os::TimeService::Instance()->getTicks();
+    lastTimestamp = RTT::os::TimeService::Instance()->secondsSince( _initialTimestamp );
+
+    configureHook();
+
+    std::cout << "Derivative constructed !" <<std::endl;
 }
 
 bool Derivative::configureHook(){
-  std::cout << "Derivative configured !" <<std::endl;
-  return true;
+    return true;
 }
 
 bool Derivative::startHook(){
@@ -17,7 +29,13 @@ bool Derivative::startHook(){
 }
 
 void Derivative::updateHook(){
-  std::cout << "Derivative executes updateHook !" <<std::endl;
+    if(simpleIn.read(value) == RTT::NewData){
+        // timestamp = RTT::os::TimeService::Instance()->secondsSince( _initialTimestamp );
+        simpleOut.write( (value - lastValue) / (0.01));
+        // std::cout << "LAST:\t" << lastValue << "\tNOW:\t" << value << std::endl;
+        // lastTimestamp = timestamp;
+        lastValue = value;
+    }
 }
 
 void Derivative::stopHook() {

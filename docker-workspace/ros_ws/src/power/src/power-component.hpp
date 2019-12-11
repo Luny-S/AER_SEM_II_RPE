@@ -11,5 +11,9 @@ class Power : public RTT::TaskContext{
     void updateHook();
     void stopHook();
     void cleanupHook();
+
+private:
+    RTT::InputPort<double> simpleIn;
+    RTT::OutputPort<double> simpleOut;
 };
 #endif

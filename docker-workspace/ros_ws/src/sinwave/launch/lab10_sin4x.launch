@@ -1,0 +1,37 @@
+<launch>
+    <node pkg="sinwave" name="gen1" type="generator.py" output="screen">
+        <param name='outTopic' type='string' value='sine1'/>
+        <param name='frequency' type='double' value='0.1'/>
+        <param name='executionFrequency' type='double' value='30.0'/>
+    </node>
+
+    <node pkg="sinwave" name="power1" type="power.py" output="screen">
+      <param name='inTopic' type='string' value='sine1'/>
+      <param name='outTopic' type='string' value='sig1'/>
+      <param name='power' type='double' value='2'/>
+    </node>
+
+    <node pkg="sinwave" name="derivative1" type="derivative.py" output="screen">
+      <param name='inTopic' type='string' value='sig1'/>
+      <param name='outTopic' type='string' value='sig2'/>
+    </node>
+
+    <node pkg="sinwave" name="power2" type="power.py" output="screen">
+      <param name='inTopic' type='string' value='sig2'/>
+      <param name='outTopic' type='string' value='sig3'/>
+      <param name='power' type='double' value='2'/>
+    </node>
+
+    <node pkg="sinwave" name="derivative2" type="derivative.py" output="screen">
+      <param name='inTopic' type='string' value='sig3'/>
+      <param name='outTopic' type='string' value='sig4'/>
+    </node>
+
+    <node pkg="sinwave" name="amplification" type="amplification.py" output="screen">
+      <param name='inTopic' type='string' value='sig4'/>
+      <param name='outTopic' type='string' value='sine2'/>
+      <param name='gain' type='double' value='2.0157'/> <!-- gain = 1/(2*omega^3) -->
+    </node>
+
+    <node name="loggerRqt" pkg="rqt_plot" type="rqt_plot" args="/sine1/value /sine2/value"/>
+</launch>

@@ -4,6 +4,8 @@
 
 #include <rtt/RTT.hpp>
 #include <rtt/Port.hpp>
+#include <rtt/os/TimeService.hpp>
+#include <rtt/Time.hpp>
 #include <cmath>
 
 #include <sinwave/TimeSeriesPoint.h>
@@ -22,6 +24,7 @@ private:
 	RTT::OutputPort<sinwave::TimeSeriesPoint> rosOut;
   RTT::OutputPort<sinwave::TimeSeriesPoint> complexOut;
   RTT::OutputPort<double> simpleOut;
+  RTT::OutputPort<double> setGainOut;
   // RTT::OutputPort<double> rosSimpleOut;
   RTT::OutputPort<sinwave::WorkaroundDouble> rosSimpleOut;
 
@@ -38,5 +41,7 @@ private:
   bool _complex_out_active;
   bool _simple_ros_out_active;
   bool _complex_ros_out_active;
+
+  long long _initialTimestamp;
 };
 #endif
